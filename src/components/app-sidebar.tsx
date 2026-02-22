@@ -21,11 +21,26 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { useAuth } from "@/context/AuthContext"
 
 import { navigation } from "@/routes/config"
 
 export function AppSidebar() {
+    const { user, logout, hasRole, hasAuthority } = useAuth();
+    const navigate = useNavigate();
+
+    const visibleNavigation = navigation.filter((item) => {
+        const hasRequiredRoles = item.requiredRoles?.length ? item.requiredRoles.some(hasRole) : true;
+        const hasRequiredPermissions = item.requiredPermissions?.length ? item.requiredPermissions.some(hasAuthority) : true;
+        return hasRequiredRoles && hasRequiredPermissions;
+    });
+
+    const handleLogout = async () => {
+        await logout();
+        navigate("/login");
+    };
+
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader className="p-4 border-b border-sidebar-border">
@@ -41,7 +56,7 @@ export function AppSidebar() {
                     <SidebarGroupLabel>Application</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            {navigation.map((item) => (
+                            {visibleNavigation.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild tooltip={item.title}>
                                         <Link to={item.url}>
@@ -75,7 +90,7 @@ export function AppSidebar() {
                             <DropdownMenuTrigger asChild>
                                 <SidebarMenuButton>
                                     <User2 />
-                                    <span>Username</span>
+                                    <span>{user?.username ?? "Guest"}</span>
                                     <ChevronUp className="ml-auto" />
                                 </SidebarMenuButton>
                             </DropdownMenuTrigger>
@@ -89,7 +104,7 @@ export function AppSidebar() {
                                 <DropdownMenuItem>
                                     <span>Billing</span>
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem onClick={handleLogout}>
                                     <span>Sign out</span>
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
