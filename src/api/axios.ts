@@ -1,16 +1,10 @@
 import axios from 'axios';
 
-const fallbackApiBase = () => {
-    if (typeof window === 'undefined') {
-        return 'http://localhost:9090';
-    }
-
-    const apiHost = `${window.location.hostname}:9090`;
-    return `${window.location.protocol}//${apiHost}`;
-};
+export const API_BASE_URL: string =
+    import.meta.env.VITE_API_URL?.trim() || 'http://localhost:9090';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? fallbackApiBase(),
+  baseURL: API_BASE_URL,
   withCredentials: true,
   timeout: 10000,
   headers: {

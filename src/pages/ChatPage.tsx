@@ -17,6 +17,7 @@ import {
     type CreateChatRoomRequest,
 } from "@/services/chatService";
 import { fetchUsers, type UserItem } from "@/services/userService";
+import { API_BASE_URL } from "@/api/axios";
 
 interface LiveMessage {
     roomId: number;
@@ -49,7 +50,7 @@ const withAccessToken = (url: string, accessToken?: string) => {
 };
 
 const toWsUrl = (accessToken?: string) => {
-    const baseApi = import.meta.env.VITE_API_URL?.trim() || `${window.location.protocol}//${window.location.hostname}:9090`;
+    const baseApi = API_BASE_URL;
     const trimmedBase = baseApi.replace(/\/+$/, "");
     try {
         const url = new URL(baseApi);
