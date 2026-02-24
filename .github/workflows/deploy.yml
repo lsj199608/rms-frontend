@@ -21,7 +21,8 @@ jobs:
     - name: Build and Push Docker Image
       uses: docker/build-push-action@v5
       with:
-        context: .
+        context: . # 현재 리포지토리 루트를 기준으로 하겠다는 뜻
+        file: ./Dockerfile # Dockerfile 위치
         push: true
         # 이미지 태그를 'latest' 대신 커밋 해시(${{ github.sha }})로 붙여 고유하게 관리합니다.
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/rms-frontend:${{ github.sha }}
