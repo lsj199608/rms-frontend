@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: rms-frontend-deployment
+  name: rms-frontend-deployment #ㅁㄴㅇㄹ
 spec:
   replicas: 2
   selector:
