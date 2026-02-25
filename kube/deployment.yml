@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rms-frontend
-        image: ${{ secrets.DOCKERHUB_USERNAME }}/rms-frontend:latest # Actions가 업데이트함
+        image: kkukku0218/rms-frontend:d708118314f48735ab6958dd69df15737895ac2d
         ports:
         - containerPort: 80
 ---
