@@ -30,9 +30,9 @@ jobs:
     # 실무 핵심: kube 배포 파일의 이미지 주소를 새 버전으로 수정하고 다시 커밋함
     - name: Update kube Image Tag
       run: |
-        sed -i "s|image:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/rms-frontend:${{ github.sha }}|g" kube/deployment.yaml
+        sed -i "s|image:.*|image: ${{ secrets.DOCKERHUB_USERNAME }}/rms-frontend:${{ github.sha }}|g" kube/deployment.yml
         git config --global user.name 'github-actions'
         git config --global user.email 'github-actions@github.com'
-        git add kube/deployment.yaml
+        git add kube/deployment.yml
         git commit -m "Update React App to ${{ github.sha }}"
         git push
