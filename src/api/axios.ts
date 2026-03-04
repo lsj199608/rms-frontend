@@ -5,7 +5,7 @@ const fallbackApiBase = () => {
         return 'http://localhost:9090';
     }
 
-    const apiHost = `${window.location.hostname}:9090`;
+    const apiHost = window.location.hostname.includes("rms")?`${window.location.hostname}`:`${window.location.hostname}:9090`;
     return `${window.location.protocol}//${apiHost}`;
 };
 
