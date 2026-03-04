@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-const envApiUrl = import.meta.env.VITE_API_URL?.trim() || 'http://localhost:9090';
-
-export const API_BASE_URL: string = `${window.location.hostname}`.includes("rms")
-      ? `${window.location.protocol}//${window.location.hostname}` : envApiUrl;
+export const API_BASE_URL: string =
+    import.meta.env.VITE_API_URL?.trim() || 'http://localhost:9090';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
