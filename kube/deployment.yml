@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: rms-frontend
-        image: kkukku0218/rms-frontend:c4567a489ff5afb9d6f0fb2c7dab7e3ce222f029
+        image: kkukku0218/rms-frontend:af093ea9d1c9088c6f3ec89b3aa54deabaf982e7
         ports:
         - containerPort: 80
 ---
